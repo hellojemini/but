@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>invitation · app buttons</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0f2fa 0%, #e6e9f2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 16px;
+        }
+
+        /* card that holds both buttons – like an app screen */
+        .app-container {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 48px;
+            padding: 32px 24px;
+            box-shadow: 
+                0 20px 40px -10px rgba(10, 20, 50, 0.25),
+                inset 0 -2px 1px rgba(255, 255, 255, 0.8),
+                inset 0 2px 5px rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            width: fit-content;
+        }
+
+        .button-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            width: min(320px, 70vw);
+        }
+
+        /* base button style — modern glassy app tile */
+        .app-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            width: 100%;
+            border: none;
+            outline: none;
+            background: #ffffffd9;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 36px;
+            padding: 20px 16px;
+            font-size: 1.6rem;
+            font-weight: 520;
+            letter-spacing: 0.02em;
+            color: #1b1e2f;
+            box-shadow: 
+                0 12px 24px -8px rgba(0, 10, 30, 0.2),
+                0 4px 10px -2px rgba(0, 0, 0, 0.05),
+                inset 0 -2px 1px rgba(255, 255, 255, 1),
+                inset 0 1px 4px rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.18s ease;
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            text-decoration: none;  /* for <a> tags */
+        }
+
+        /* subtle shine overlay (app-like) */
+        .app-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 36px;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 60%);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* press effect — feels like a real button */
+        .app-btn:active {
+            transform: scale(0.975);
+            box-shadow: 
+                0 6px 16px -6px rgba(0, 10, 30, 0.3),
+                0 2px 6px -2px rgba(0, 0, 0, 0.1),
+                inset 0 -1px 2px rgba(255, 255, 255, 0.9),
+                inset 0 4px 8px rgba(0, 0, 0, 0.02);
+            background: #fafcff;
+        }
+
+        /* distinct colors & emoji for each invitation */
+        .wedding-btn {
+            background: linear-gradient(135deg, #ffffff, #f8f0ff);
+            color: #4a2f4a;
+        }
+
+        .wedding-btn .btn-icon {
+            font-size: 2.2rem;
+            filter: drop-shadow(0 4px 6px rgba(210, 150, 200, 0.4));
+        }
+
+        .birthday-btn {
+            background: linear-gradient(135deg, #ffffff, #fff7e5);
+            color: #3d3a1f;
+        }
+
+        .birthday-btn .btn-icon {
+            font-size: 2.2rem;
+            filter: drop-shadow(0 4px 6px rgba(250, 180, 100, 0.5));
+        }
+
+        .btn-label {
+            flex: 1;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 550;
+            text-shadow: 0 1px 3px rgba(255,255,255,0.8);
+            white-space: nowrap;
+        }
+
+        /* optional small description / meta (app like) */
+        .meta-hint {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            padding: 0 16px;
+            color: #2a2e47;
+            font-size: 0.85rem;
+            font-weight: 400;
+            opacity: 0.65;
+            letter-spacing: 0.3px;
+        }
+
+        .meta-hint span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* just a tiny flourish to feel like an app home */
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            padding: 0 12px;
+        }
+
+        .app-header .indicator {
+            background: #1e1e2f;
+            opacity: 0.3;
+            width: 22px;
+            height: 6px;
+            border-radius: 20px;
+        }
+
+        .app-header .signal {
+            display: flex;
+            gap: 4px;
+        }
+        .app-header .signal i {
+            width: 8px;
+            height: 8px;
+            background: #2b2e47;
+            border-radius: 10px;
+            opacity: 0.5;
+        }
+
+        /* responsive extra */
+        @media (max-width: 380px) {
+            .btn-label {
+                font-size: 1.1rem;
+            }
+            .app-btn {
+                padding: 16px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- subtle top status to sell the "app" feel -->
+        <div class="app-header">
+            <div class="indicator"></div>
+            <div class="signal">
+                <i></i><i></i><i></i>
+            </div>
+        </div>
+
+        <div class="button-stack">
+            <!-- FIRST BUTTON: wedding invitation with link -->
+            <a href="https://hellojemini.github.io/Ca/" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="app-btn wedding-btn">
+                <span class="btn-icon">💒</span>
+                <span class="btn-label">wedding invitation</span>
+                <span class="btn-icon" style="opacity:0.5;">↗</span>
+            </a>
+
+            <!-- SECOND BUTTON: birthday invitation with link -->
+            <a href="https://www.canva.com/create/birthday-invitations/" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="app-btn birthday-btn">
+                <span class="btn-icon">🎂</span>
+                <span class="btn-label">birthday invitation</span>
+                <span class="btn-icon" style="opacity:0.5;">↗</span>
+            </a>
+        </div>
+
+        <!-- additional micro text to complete the card (app-like) -->
+        <div class="meta-hint">
+            <span>✨ click to create</span>
+            <span>📋 2 templates</span>
+        </div>
+    </div>
+
+    <!-- optional script for analytics or additional behavior -->
+    <script>
+        (function() {
+            const buttons = document.querySelectorAll('.app-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const label = btn.querySelector('.btn-label')?.innerText || 'button';
+                    console.log(`📱 [invitation App] “${label}” clicked – opening link`);
+                    // The link will open normally since it's an <a> tag
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
